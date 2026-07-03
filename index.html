@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <meta property="og:title" content="❤️">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta name="description" content="">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SÜRPRİZ</title>
@@ -21,7 +25,7 @@ canvas{position:fixed;inset:0;pointer-events:none}
 <canvas id="c"></canvas>
 <div class="card">
 <p style="margin-top:0;font-size:22px;color:#fff;font-weight:bold">Sana söylemek istediğim önemli bir şey var...</p>
-<h1>Benimle Çıkar Mısın? 💖💖💖💖</h1>
+<h1>Benimle Çıkar Mısın? 💖</h1>
 <button id="yes">Evet 💖</button>
 <button id="no">Hayır 😡😡</button>
 <p id="msg"></p>
@@ -35,7 +39,7 @@ document.body.addEventListener("click",()=>music.play().catch(()=>{}),{once:true
 let scale=1;
 function move(){
 const x=Math.random()*(innerWidth-120),y=Math.random()*(innerHeight-60);
-no.style.position="fixed";no.style.left=x+"px";no.style.top=y+"px";no.textContent="Hayır 🙈";
+no.style.position="fixed";no.style.left=x+"px";no.style.top=y+"px";no.textContent="Hayır 😡";
 scale+=.12;yes.style.transform=`scale(${scale})`;
 }
 no.addEventListener("mouseenter",move);
