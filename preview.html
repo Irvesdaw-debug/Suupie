@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Benimle Çıkar Mısın? ❤️</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ff9ecb,#b388ff);}
+body:before{content:"";position:fixed;inset:0;backdrop-filter:blur(10px)}
+.card{position:relative;z-index:2;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(20px);padding:40px;border-radius:24px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);width:min(90vw,500px)}
+h1{color:#fff}p{color:#fff}
+button{padding:14px 28px;border:none;border-radius:999px;font-size:20px;font-weight:bold;cursor:pointer;transition:.25s}
+#yes{background:#39d353;color:#fff}
+#no{background:#ff4d6d;color:#fff;position:relative}
+.heart{position:fixed;bottom:-30px;font-size:24px;animation:fly 6s linear forwards}
+@keyframes fly{to{transform:translateY(-120vh) rotate(360deg);opacity:0}}
+canvas{position:fixed;inset:0;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="card">
+<p style="margin-top:0;font-size:22px;color:#fff;font-weight:bold">Sana söylemek istediğim önemli bir şey var...</p>
+<h1>Benimle Çıkar Mısın? ❤️</h1>
+<button id="yes">Evet 💖</button>
+<button id="no">Hayır 🙈</button>
+<p id="msg"></p>
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b6d6a2b.mp3" type="audio/mpeg">
+</audio>
+</div>
+<script>
+const yes=document.getElementById("yes"),no=document.getElementById("no"),msg=document.getElementById("msg"),music=document.getElementById("music");
+document.body.addEventListener("click",()=>music.play().catch(()=>{}),{once:true});
+let scale=1;
+function move(){
+const x=Math.random()*(innerWidth-120),y=Math.random()*(innerHeight-60);
+no.style.position="fixed";no.style.left=x+"px";no.style.top=y+"px";no.textContent="Hayır 🙈";
+scale+=.12;yes.style.transform=`scale(${scale})`;
+}
+no.addEventListener("mouseenter",move);
+no.addEventListener("touchstart",e=>{e.preventDefault();move();});
+yes.onclick=()=>{
+confetti();
+document.querySelector('.card').innerHTML="<h1 style='color:white;font-size:42px'>Ben de seni çok seviyorum! 💕</h1>";
+};
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";h.textContent="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(18+Math.random()*30)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},350);
+const cv=document.getElementById("c"),ctx=cv.getContext("2d");
+function rs(){cv.width=innerWidth;cv.height=innerHeight}rs();onresize=rs;
+let parts=[];
+function confetti(){
+for(let i=0;i<250;i++)parts.push({x:Math.random()*cv.width,y:-20,vx:(Math.random()-.5)*6,vy:2+Math.random()*5,s:4+Math.random()*5,c:`hsl(${Math.random()*360},100%,60%)`});
+}
+(function anim(){
+ctx.clearRect(0,0,cv.width,cv.height);
+parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,p.s,p.s)});
+parts=parts.filter(p=>p.y<cv.height+20);
+requestAnimationFrame(anim);
+})();
+</script>
+</body></html>
